@@ -30,3 +30,17 @@ class CreateTask(CreateView):
     context_object_name = "create"
     fields = "__all__"
     success_url = reverse_lazy('tasks')
+
+
+class UpdateTask(UpdateView):
+    template_name = "update_task.html"
+    model = Task
+    success_url = reverse_lazy("tasks")
+    fields = "__all__"
+
+
+class DeleteTask(DeleteView):
+    template_name = "delete_task.html"
+    model = Task
+    success_url = reverse_lazy("tasks")
+    fields = "__all__"

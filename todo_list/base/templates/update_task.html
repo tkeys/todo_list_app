@@ -5,17 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-<h1>This is the task create page</h1>
-<h2>Add new task</h2>
+<h2>Update task</h2>
 <form method="post">
    {% csrf_token %}
    {{ form.as_p }}
-   <input type="submit" value="Create task" class="btn btn-primary">
+   <input type="submit" value="Update task" class="btn btn-primary">
 
 
 </form>
-<a href="{% url 'tasks' %}">Go back<a/>
 </body>
 </html>
-
-
