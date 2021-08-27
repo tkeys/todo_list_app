@@ -17,3 +17,13 @@ class Task(models.Model):
 
     class Meta:
         ordering = ['complete']
+
+
+class Profile(models.Model):
+    country = models.CharField(max_length=50, null=True, blank=True)
+    gender = models.CharField(max_length=50, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+
+    def __str__(self):
+        return self.user.username

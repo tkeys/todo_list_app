@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView, FormView
 from .models import Task
 from django.urls import reverse_lazy
+from .forms import ContactForm, SignUpForm
 
 
 class TaskList(ListView):
@@ -45,3 +46,14 @@ class DeleteTask(DeleteView):
     context_object_name = "task"
     success_url = reverse_lazy("tasks")
 
+
+class SignUpView(CreateView):
+    template_name = "registration/create_profile.html"
+    success_url = reverse_lazy("tasks")
+    form_class = SignUpForm
+
+
+#class ProfileDetail(DetailView):
+    #template_name = "detail_profile.html"
+    #model = Profile
+    #context_object_name = "profile"
