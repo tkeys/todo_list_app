@@ -40,7 +40,8 @@ class UpdateTask(UpdateView):
 
 
 class DeleteTask(DeleteView):
-    template_name = "delete_task.html"
+    template_name = "task_confirm_delete.html"
     model = Task
+    context_object_name = "task"
     success_url = reverse_lazy("tasks")
-    fields = "__all__"
+
