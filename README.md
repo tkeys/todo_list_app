@@ -1,2 +1,2 @@
 # todo_list_app
- djnago to do list portfoli project
+ To do list app portfolio project
