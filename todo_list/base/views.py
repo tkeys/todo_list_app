@@ -7,6 +7,7 @@ from .forms import ContactForm, SignUpForm
 
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 class CustomLoginView(LoginView):
@@ -23,21 +24,20 @@ class CustomLogoutView(LogoutView):
     fields = "__all__"
     redirect_authenticated_user = True
 
-    def get_success_url(self):
-        return reverse_lazy('tasks')
+    # def get_success_url(self):
+    # return reverse_lazy('tasks')
 
 
-class TaskList(ListView):
+class TaskList(LoginRequiredMixin, ListView):
     template_name = "task_list.html"
     model = Task
     context_object_name = "tasks"
 
-
-# Create your views here.
-# class CreateTask(CreateView):
-# model = Task
-# template_name = "create_task.html"
-# context_object_name = "new"
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tasks'] = context['tasks'].filter(user=self.request.user)
+        context['count'] = context['tasks'].filter(complete=False).count
+        return context
 
 
 class TaskDetail(DetailView):
@@ -50,15 +50,19 @@ class CreateTask(CreateView):
     model = Task
     template_name = "create_task.html"
     context_object_name = "create"
-    fields = "__all__"
+    fields = ['title', 'description', 'complete']
     success_url = reverse_lazy('tasks')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(CreateTask, self).form_valid(form)
 
 
 class UpdateTask(UpdateView):
     template_name = "update_task.html"
     model = Task
     success_url = reverse_lazy("tasks")
-    fields = "__all__"
+    fields = ['title', 'description', 'complete']
 
 
 class DeleteTask(DeleteView):
