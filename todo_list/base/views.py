@@ -5,6 +5,27 @@ from .models import Task
 from django.urls import reverse_lazy
 from .forms import ContactForm, SignUpForm
 
+from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+
+
+class CustomLoginView(LoginView):
+    template_name = "registration/login.html"
+    fields = "__all__"
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('tasks')
+
+
+class CustomLogoutView(LogoutView):
+    template_name = "registration/logout.html"
+    fields = "__all__"
+    redirect_authenticated_user = True
+
+    def get_success_url(self):
+        return reverse_lazy('tasks')
+
 
 class TaskList(ListView):
     template_name = "task_list.html"
@@ -52,8 +73,7 @@ class SignUpView(CreateView):
     success_url = reverse_lazy("tasks")
     form_class = SignUpForm
 
-
-#class ProfileDetail(DetailView):
-    #template_name = "detail_profile.html"
-    #model = Profile
-    #context_object_name = "profile"
+# class ProfileDetail(DetailView):
+# template_name = "detail_profile.html"
+# model = Profile
+# context_object_name = "profile"

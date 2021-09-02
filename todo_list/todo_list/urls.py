@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from base import views
-from base.views import TaskList, TaskDetail, CreateTask, UpdateTask, DeleteTask, SignUpView
+from base.views import TaskList, TaskDetail, CreateTask, UpdateTask, DeleteTask, SignUpView, CustomLoginView, CustomLogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'),
     path('', TaskList.as_view(), name='tasks'),
 
     path('task/<int:pk>/', TaskDetail.as_view(), name='task'),
