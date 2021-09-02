@@ -12,8 +12,12 @@
 <a href="login">Login</a>
 {% endif %}
 <h1>My todo list</h1>
-<a href="{% url 'sign-up' %}">Sign Up</a>
+
 <a href="{% url 'new' %}">Add task</a>
+<form method="get">
+    <input type="text" value="search-area">
+    <input type="submit" value="search">
+</form>
 
 
 <table>
