@@ -14,9 +14,9 @@
 <h1>My todo list</h1>
 
 <a href="{% url 'new' %}">Add task</a>
-<form method="get">
-    <input type="text" value="search-area">
-    <input type="submit" value="search">
+<form method="GET">
+    <input type="text" name="search-area" value = "{{search_input}}">
+    <input type="submit" value="Search">
 </form>
 
 
